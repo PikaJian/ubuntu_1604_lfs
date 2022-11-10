@@ -82,7 +82,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'gregsexton/gitv'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 
 "" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -621,10 +621,6 @@ nnoremap <silent> <leader>t :TagbarToggle<CR>
 "let g:tagbar_autofocus = 1
 let g:tagbar_width=25
 
-" --- vim-gitgutter
-let g:gitgutter_enabled = 0
-let g:gitgutter_signs = 1
-
 "map ctrl-space to trigger autocomplete under terminal
 if !has("gui_running")
     inoremap <C-@> <C-x><C-o>
@@ -1070,8 +1066,8 @@ imap <c-x><c-b> <plug>(fzf-complete-buffer-line)
 "coc.vim {{{
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> <leader>jd <Plug>(coc-definition)
@@ -1115,11 +1111,12 @@ endfunction
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 " other pl
-inoremap <silent><expr> <C-j>
+inoremap <silent><expr> <c-j>
      \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-"inoremap <expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <expr><c-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 
 
