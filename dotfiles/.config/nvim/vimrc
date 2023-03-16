@@ -236,6 +236,22 @@ function! ChangeFold()
 endfunction
 nnoremap  fd :call ChangeFold()<CR> 
 
+
+
+if executable('clipboard-provider')
+  let g:clipboard = {
+          \ 'name': 'myClipboard',
+          \     'copy': {
+          \         '+': 'clipboard-provider copy',
+          \         '*': 'clipboard-provider copy',
+          \     },
+          \     'paste': {
+          \         '+': 'clipboard-provider paste',
+          \         '*': 'clipboard-provider paste',
+          \     },
+          \ }
+endif
+
 set updatetime=100
 set clipboard=unnamed,unnamedplus " yank to the system register (*) by default
 set showmatch       " Cursor shows matching ) and }
@@ -484,6 +500,17 @@ fun! IncludeGuard()
    call append(1, "#define " . guard)
    call append( line("$"), "#endif // for #ifndef " . guard)
 endfun
+
+
+" generate json for clangd
+function! s:generate_compile_json()
+    if executable('compiledb')
+        call system('compiledb make')
+    else
+        echom "can not generate compiledb"
+    endif
+endfunction
+command! Compiledb call s:generate_compile_json()
 
 
 
